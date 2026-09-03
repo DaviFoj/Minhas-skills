@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Catálogo pessoal de skills instaladas no Codex, Claude Code e Agents.">
+  <title>Meu repertório de skills</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #141716;
+      --surface: #1d211f;
+      --surface-2: #252a27;
+      --surface-3: #2d332f;
+      --text: #f4f1e9;
+      --muted: #aeb6af;
+      --subtle: #7e8982;
+      --line: #39413c;
+      --acid: #d9ff67;
+      --acid-ink: #162000;
+      --orange: #ff9c72;
+      --blue: #9fc6ff;
+      --violet: #c6aaff;
+      --pink: #ff9cc8;
+      --shadow: 0 20px 60px rgba(0, 0, 0, .22);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    button, input, select { font: inherit; }
+
+    button, select, input {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--surface-2);
+      color: var(--text);
+    }
+
+    button, select { cursor: pointer; }
+
+    button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--acid);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      min-width: 0;
+      margin: 0 auto;
+      padding: 28px 0 58px;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border: 1px solid var(--acid);
+      border-radius: 8px;
+      color: var(--acid);
+    }
+
+    .brand-mark svg { width: 18px; height: 18px; }
+
+    .topline time { white-space: nowrap; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, .8fr);
+      gap: 56px;
+      align-items: end;
+      padding: 66px 0 58px;
+    }
+
+    .hero > * { min-width: 0; }
+
+    h1, h2, p { margin: 0; }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(3.2rem, 8vw, 7.1rem);
+      line-height: .9;
+      letter-spacing: -.07em;
+      font-weight: 800;
+    }
+
+    .hero-copy {
+      max-width: 500px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.24rem);
+    }
+
+    .hero-copy strong { color: var(--text); font-weight: 650; }
+
+    .scope-note {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--subtle);
+      font-size: .85rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .stat {
+      min-height: 118px;
+      padding: 18px;
+      background: var(--surface);
+    }
+
+    .stat-number {
+      display: block;
+      color: var(--acid);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -.06em;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .77rem;
+      line-height: 1.25;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 190px 150px auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .control {
+      min-height: 43px;
+      padding: 0 13px;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      width: 17px;
+      height: 17px;
+      color: var(--subtle);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding-left: 42px;
+    }
+
+    .clear-button {
+      padding: 0 14px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .clear-button:hover { border-color: var(--acid); color: var(--acid); }
+
+    .result-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 2px 20px;
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    .result-line strong { color: var(--text); }
+
+    .skill-list {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 58px minmax(190px, 1.1fr) minmax(280px, 1.8fr) 150px 30px;
+      gap: 18px;
+      align-items: center;
+      min-height: 112px;
+      padding: 17px 10px;
+      border-bottom: 1px solid var(--line);
+      transition: background .2s ease;
+    }
+
+    .skill-row:last-child { border-bottom: 0; }
+    .skill-row:hover { background: var(--surface); }
+
+    .skill-index {
+      color: var(--subtle);
+      font-size: .8rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .08em;
+    }
+
+    .skill-name {
+      display: block;
+      font-size: 1.12rem;
+      font-weight: 760;
+      letter-spacing: -.02em;
+    }
+
+    .skill-slug {
+      display: block;
+      margin-top: 4px;
+      color: var(--subtle);
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: .72rem;
+    }
+
+    .skill-purpose {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .skill-purpose strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text);
+      font-size: .77rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .locations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .location {
+      padding: 4px 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .68rem;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .family-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .72rem;
+    }
+
+    .family-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow: 0 0 0 3px rgba(217,255,103,.08);
+    }
+
+    .family-interface .family-dot { background: var(--violet); }
+    .family-code .family-dot { background: var(--orange); }
+    .family-motion .family-dot { background: var(--acid); }
+    .family-tools .family-dot { background: var(--pink); }
+    .family-discovery .family-dot { background: var(--blue); }
+
+    .details {
+      grid-column: 2 / -1;
+      margin-top: -4px;
+      color: var(--subtle);
+      font-size: .78rem;
+    }
+
+    .details summary {
+      width: fit-content;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .details summary:hover { color: var(--acid); }
+
+    .path-list {
+      display: grid;
+      gap: 4px;
+      margin: 10px 0 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .path-list code {
+      display: inline-block;
+      padding: 5px 7px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: .7rem;
+      overflow-wrap: anywhere;
+    }
+
+    .empty {
+      display: none;
+      padding: 48px 20px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .empty strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 22px;
+      color: var(--subtle);
+      font-size: .76rem;
+    }
+
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--acid); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .stats { max-width: 650px; }
+      .toolbar { grid-template-columns: 1fr 1fr; }
+      .search-wrap { grid-column: 1 / -1; }
+      .skill-row {
+        grid-template-columns: 44px minmax(180px, 1fr) 30px;
+        gap: 12px;
+      }
+      .skill-purpose, .locations { grid-column: 2 / -1; }
+      .skill-purpose { grid-row: 2; }
+      .locations { grid-row: 3; }
+      .details { grid-column: 2 / -1; grid-row: 4; }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: calc(100vw - 28px);
+        max-width: 362px;
+        padding-top: 18px;
+      }
+      .topline { display: block; font-size: .66rem; }
+      .topline time { display: block; margin-top: 10px; white-space: normal; }
+      .hero { display: block; width: 100%; max-width: 100%; padding: 48px 0 38px; }
+      .hero > div { width: 100%; max-width: 100%; }
+      .hero > div + div { margin-top: 32px; }
+      h1 { font-size: clamp(3rem, 17vw, 5rem); }
+      .hero-copy, .scope-note, .skill-purpose { width: 100%; max-width: 100%; overflow-wrap: anywhere; word-break: break-word; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { min-height: auto; padding: 14px 16px; }
+      .stat-number { display: inline; margin-right: 8px; font-size: 1.35rem; }
+      .stat-label { display: inline; }
+      .toolbar { grid-template-columns: 1fr; min-width: 0; }
+      .search-wrap { grid-column: auto; }
+      .search-wrap, .control { min-width: 0; }
+      .clear-button { min-height: 40px; }
+      .skill-row {
+        grid-template-columns: 32px minmax(0, 1fr) 24px;
+        padding: 16px 4px;
+      }
+      .skill-purpose, .locations, .details { grid-column: 2 / -1; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .skill-row { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    THESIS: um índice vivo transforma um diretório pessoal disperso em repertório consultável; recusa a grade genérica de cartões.
+    OWN-WORLD: bancada escura de trabalho, linhas finas, verde ácido para ação e cores pontuais para separar famílias.
+    STORY: a pessoa reconhece o conjunto instalado, filtra por necessidade e entende em segundos quando chamar cada skill.
+    FIRST VIEWPORT: título grande à esquerda, contagem à direita e, logo abaixo, busca/filtros antes da primeira linha do inventário.
+    FORM: catálogo editorial-operacional, forma 1, derivado de um índice de ferramentas e de uma lista de inventário técnico.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <div class="shell">
+    <div class="topline">
+      <span class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 6.5h5M14 6.5h5M8 6.5v11M16 6.5v11M5 17.5h5M14 17.5h5"/>
+            <circle cx="8" cy="6.5" r="2.1" fill="currentColor" stroke="none"/>
+            <circle cx="16" cy="17.5" r="2.1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        inventário pessoal / skills
+      </span>
+      <time datetime="2026-09-03">capturado em 03 set 2026</time>
+    </div>
+
+    <header class="hero">
+      <div>
+        <h1>Meu repertório<br>de skills.</h1>
+        <p class="scope-note">Um mapa local das skills disponíveis, com a função de cada uma e os agentes que as carregam.</p>
+      </div>
+      <div>
+        <p class="hero-copy">Consulte por nome, área ou agente. O catálogo reúne suas instalações pessoais em <strong>Codex</strong>, <strong>Claude Code</strong> e <strong>Agents</strong>.</p>
+        <div class="stats" aria-label="Resumo do catálogo">
+          <div class="stat"><span class="stat-number" id="totalCount">53</span><span class="stat-label">skills únicas</span></div>
+          <div class="stat"><span class="stat-number" id="familyCount">—</span><span class="stat-label">áreas de uso</span></div>
+          <div class="stat"><span class="stat-number" id="locationCount">3</span><span class="stat-label">locais pessoais</span></div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="toolbar" aria-label="Filtros do catálogo">
+        <label class="search-wrap">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="10.8" cy="10.8" r="6.3"></circle>
+            <path d="m16 16 4.4 4.4"></path>
+          </svg>
+          <input class="control" id="searchInput" type="search" placeholder="Buscar por nome, uso ou tecnologia..." aria-label="Buscar skills">
+        </label>
+        <label>
+          <span class="sr-only">Filtrar por área</span>
+          <select class="control" id="familyFilter" aria-label="Filtrar por área">
+            <option value="all">Todas as áreas</option>
+          </select>
+        </label>
+        <label>
+          <span class="sr-only">Filtrar por agente</span>
+          <select class="control" id="locationFilter" aria-label="Filtrar por agente">
+            <option value="all">Todos os agentes</option>
+          </select>
+        </label>
+        <button class="control clear-button" id="clearButton" type="button">Limpar filtros</button>
+      </section>
+
+      <div class="result-line" aria-live="polite">
+        <span>Mostrando <strong id="resultCount">53</strong> skills</span>
+        <span id="resultHint">todas as instalações pessoais</span>
+      </div>
+
+      <section class="skill-list" id="skillsGrid" aria-label="Skills instaladas"></section>
+      <div class="empty" id="emptyState">
+        <strong>Nenhuma skill encontrada.</strong>
+        Tente outro termo ou limpe os filtros para voltar ao inventário completo.
+      </div>
+    </main>
+
+    <footer>
+      <span>Escopo: união dos diretórios pessoais; sistema e runtimes sem <code>SKILL.md</code> ficam fora.</span>
+      <a href="https://github.com/openai/skills" target="_blank" rel="noreferrer">formato Agent Skills ↗</a>
+    </footer>
+  </div>
+
+  <script>
+    const skills = [
+      {
+        id: 'impeccable',
+        name: 'Impeccable',
+        family: 'Interface e UX',
+        familyClass: 'interface',
+        purpose: 'Desenhar, revisar e polir interfaces frontend com foco em hierarquia, acessibilidade, responsividade, tipografia, espaçamento e estados.',
+        keywords: 'frontend ui ux design acessibilidade responsive dashboard landing page',
+        locations: ['Claude Code', 'Agents'],
+        paths: ['C:/Users/Dell/.claude/skills/impeccable', 'C:/Users/Dell/.agents/skills/impeccable']
+      },
+      {
+        id: 'code-review-excellence',
+        name: 'Code Review Excellence',
+        family: 'Código e revisão',
+        familyClass: 'code',
+        purpose: 'Fazer code reviews construtivos, encontrar bugs cedo, melhorar padrões de revisão e apoiar o compartilhamento de conhecimento.',
+        keywords: 'code review pull request bugs mentoring engenharia',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/code-review-excellence', 'C:/Users/Dell/.claude/skills/code-review-excellence']
+      },
+      {
+        id: 'revisao-codigo-senior',
+        name: 'Revisão de Código Sênior',
+        family: 'Código e revisão',
+        familyClass: 'code',
+        purpose: 'Revisar código e diffs em português do Brasil com rigor técnico: segurança, regressões, concorrência, performance, arquitetura, UX, acessibilidade e i18n.',
+        keywords: 'review diff vulnerabilidade backend frontend api schema migração português brasil',
+        locations: ['Codex'],
+        paths: ['C:/Users/Dell/.codex/skills/revisao-codigo-senior']
+      },
+      {
+        id: 'desafio-codigo',
+        name: 'Desafio de Código',
+        family: 'Prática e descoberta',
+        familyClass: 'tools',
+        purpose: 'Gerar um desafio curto e original de programação, sem solução, adaptado ao nível e à tecnologia escolhida.',
+        keywords: 'exercício programação prática desafio markdown python javascript framework banco',
+        locations: ['Codex'],
+        paths: ['C:/Users/Dell/.codex/skills/desafio-codigo']
+      },
+      {
+        id: 'find-skills',
+        name: 'Find Skills',
+        family: 'Prática e descoberta',
+        familyClass: 'discovery',
+        purpose: 'Ajudar a descobrir e instalar skills quando existe uma capacidade que pode ser adicionada ao agente.',
+        keywords: 'descobrir procurar instalar skill capability extensão',
+        locations: ['Claude Code'],
+        paths: ['C:/Users/Dell/.claude/skills/find-skills']
+      },
+      {
+        id: 'hatch-pet',
+        name: 'Hatch Pet',
+        family: 'Ferramentas criativas',
+        familyClass: 'tools',
+        purpose: 'Criar, reparar, validar e empacotar pets animados compatíveis com Codex, incluindo spritesheet, QA visual e versão 2.',
+        keywords: 'pet mascot mascot spritesheet animation character art visual qa',
+        locations: ['Codex'],
+        paths: ['C:/Users/Dell/.codex/skills/hatch-pet']
+      },
+      {
+        id: 'gsap-core',
+        name: 'GSAP Core',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Usar a API central do GSAP: tweens, easing, duração, stagger, defaults, matchMedia e animações de DOM/SVG.',
+        keywords: 'javascript animation tween easing stagger dom svg responsive reduced motion',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-core', 'C:/Users/Dell/.claude/skills/gsap-core']
+      },
+      {
+        id: 'gsap-frameworks',
+        name: 'GSAP Frameworks',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Integrar GSAP com Vue, Svelte e outros frameworks, respeitando ciclo de vida, escopo de seletores e limpeza.',
+        keywords: 'vue nuxt svelte sveltekit onmounted onmount ondestroy framework',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-frameworks', 'C:/Users/Dell/.claude/skills/gsap-frameworks']
+      },
+      {
+        id: 'gsap-performance',
+        name: 'GSAP Performance',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Otimizar animações GSAP usando transforms, evitando layout thrashing, aplicando batching e buscando movimento suave.',
+        keywords: 'fps jank performance smooth 60fps transforms will change batching',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-performance', 'C:/Users/Dell/.claude/skills/gsap-performance']
+      },
+      {
+        id: 'gsap-plugins',
+        name: 'GSAP Plugins',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Trabalhar com plugins do GSAP, como Flip, Draggable, ScrollToPlugin, SplitText, Observer, SVG, física e registro de plugins.',
+        keywords: 'flip draggable scrollto scrollsmoother splitttext observer svg physics custom ease',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-plugins', 'C:/Users/Dell/.claude/skills/gsap-plugins']
+      },
+      {
+        id: 'gsap-react',
+        name: 'GSAP React',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Animar React e Next.js com useGSAP, refs, gsap.context(), escopo seguro e limpeza no unmount.',
+        keywords: 'react nextjs usegsap refs context cleanup unmount ssr',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-react', 'C:/Users/Dell/.claude/skills/gsap-react']
+      },
+      {
+        id: 'gsap-scrolltrigger',
+        name: 'GSAP ScrollTrigger',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Criar animações ligadas ao scroll, parallax, pinning, scrub, triggers e atualizações de layout.',
+        keywords: 'scrolltrigger scroll animation parallax pin scrub trigger section',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-scrolltrigger', 'C:/Users/Dell/.claude/skills/gsap-scrolltrigger']
+      },
+      {
+        id: 'gsap-timeline',
+        name: 'GSAP Timeline',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Sequenciar animações com timelines, position parameter, labels, nesting e controle de playback.',
+        keywords: 'timeline sequence keyframes choreography labels playback delay',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-timeline', 'C:/Users/Dell/.claude/skills/gsap-timeline']
+      },
+      {
+        id: 'gsap-utils',
+        name: 'GSAP Utils',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Aplicar utilitários do GSAP como clamp, mapRange, normalize, interpolate, random, snap, wrap, pipe e toArray.',
+        keywords: 'gsap utils clamp maprange normalize interpolate random snap wrap pipe',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/gsap-utils', 'C:/Users/Dell/.claude/skills/gsap-utils']
+      },
+      {
+        id: 'img2threejs',
+        name: 'img2threejs',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Reconstruir um objeto ou personagem de uma imagem como um modelo procedural de Three.js, com pipeline por etapas e gates de qualidade.',
+        keywords: 'image to 3d threejs procedural model object character sculpt spec animation',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/img2threejs', 'C:/Users/Dell/.claude/skills/img2threejs']
+      },
+      {
+        id: 'motion-design',
+        name: 'Motion Design',
+        family: 'Motion e 3D',
+        familyClass: 'motion',
+        purpose: 'Escolher timing, easing, personalidade, intenção emocional e coreografia antes de implementar animações em CSS, GSAP, Lottie ou outros sistemas.',
+        keywords: 'motion ui transitions micro interactions loading lottie spring css framer',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/motion-design', 'C:/Users/Dell/.claude/skills/motion-design']
+      },
+      {
+        id: 'ask-matt',
+        name: 'Ask Matt',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Escolher qual skill ou fluxo do conjunto de Matt Pocock melhor se encaixa na situação atual.',
+        keywords: 'router workflow escolher skill matt pocock engenharia',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/ask-matt', 'C:/Users/Dell/.claude/skills/ask-matt']
+      },
+      {
+        id: 'code-review',
+        name: 'Code Review',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Revisar mudanças em dois eixos: aderência aos padrões do repositório e ao spec ou issue que originou o trabalho.',
+        keywords: 'review branch pull request diff standards spec issue código',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/code-review', 'C:/Users/Dell/.claude/skills/code-review']
+      },
+      {
+        id: 'codebase-design',
+        name: 'Codebase Design',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Projetar módulos profundos, melhorar interfaces, encontrar seams e tornar o código mais testável e navegável por agentes.',
+        keywords: 'deep modules interface seam testabilidade arquitetura design código',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/codebase-design', 'C:/Users/Dell/.claude/skills/codebase-design']
+      },
+      {
+        id: 'diagnosing-bugs',
+        name: 'Diagnosing Bugs',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Conduzir um loop disciplinado para diagnosticar bugs difíceis e regressões de performance.',
+        keywords: 'debug diagnosticar bug erro falha lento performance regressão',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/diagnosing-bugs', 'C:/Users/Dell/.claude/skills/diagnosing-bugs']
+      },
+      {
+        id: 'domain-modeling',
+        name: 'Domain Modeling',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Construir e refinar o modelo de domínio do projeto, incluindo terminologia, glossário, decisões e casos de borda.',
+        keywords: 'domínio contexto glossary adr terminology arquitetura',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/domain-modeling', 'C:/Users/Dell/.claude/skills/domain-modeling']
+      },
+      {
+        id: 'grill-with-docs',
+        name: 'Grill with Docs',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Fazer uma entrevista rigorosa enquanto registra decisões em ADRs, glossário e documentação do domínio.',
+        keywords: 'entrevista plano design adr glossário documentação decisão',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/grill-with-docs', 'C:/Users/Dell/.claude/skills/grill-with-docs']
+      },
+      {
+        id: 'implement',
+        name: 'Implement',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Implementar uma entrega a partir de um spec ou conjunto de tickets, com um fluxo estruturado de execução.',
+        keywords: 'implementação spec tickets feature entrega código',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/implement', 'C:/Users/Dell/.claude/skills/implement']
+      },
+      {
+        id: 'improve-codebase-architecture',
+        name: 'Improve Codebase Architecture',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Examinar a base de código em busca de oportunidades de aprofundar módulos e depois explorar a melhoria escolhida.',
+        keywords: 'arquitetura codebase deep modules refatoração oportunidade relatório',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/improve-codebase-architecture', 'C:/Users/Dell/.claude/skills/improve-codebase-architecture']
+      },
+      {
+        id: 'prototype',
+        name: 'Prototype',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Criar um protótipo descartável para validar uma decisão de design, um modelo de estado, uma lógica ou uma interface.',
+        keywords: 'protótipo experimento design lógica estado ui validar',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/prototype', 'C:/Users/Dell/.claude/skills/prototype']
+      },
+      {
+        id: 'research',
+        name: 'Research',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Investigar uma questão em fontes primárias confiáveis e registrar as descobertas em Markdown no repositório.',
+        keywords: 'pesquisa fontes primárias documentação api fatos markdown investigação',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/research', 'C:/Users/Dell/.claude/skills/research']
+      },
+      {
+        id: 'resolving-merge-conflicts',
+        name: 'Resolving Merge Conflicts',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Resolver conflitos de um merge ou rebase em andamento preservando a intenção das mudanças.',
+        keywords: 'git merge rebase conflito resolução branches código',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/resolving-merge-conflicts', 'C:/Users/Dell/.claude/skills/resolving-merge-conflicts']
+      },
+      {
+        id: 'setup-matt-pocock-skills',
+        name: 'Setup Matt Pocock Skills',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Configurar o repositório para os fluxos de engenharia, incluindo tracker, labels de triagem e layout de documentação.',
+        keywords: 'setup issue tracker labels triage contexto docs matt pocock',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/setup-matt-pocock-skills', 'C:/Users/Dell/.claude/skills/setup-matt-pocock-skills']
+      },
+      {
+        id: 'tdd',
+        name: 'TDD',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Aplicar desenvolvimento orientado a testes no ciclo red-green-refactor, incluindo testes de integração quando necessário.',
+        keywords: 'tdd test driven red green refactor testes integração bug feature',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/tdd', 'C:/Users/Dell/.claude/skills/tdd']
+      },
+      {
+        id: 'to-spec',
+        name: 'To Spec',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Transformar a conversa atual em um spec e publicá-lo no issue tracker do projeto.',
+        keywords: 'spec especificação conversa issue tracker síntese requisitos',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/to-spec', 'C:/Users/Dell/.claude/skills/to-spec']
+      },
+      {
+        id: 'to-tickets',
+        name: 'To Tickets',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Quebrar um plano ou spec em tickets tracer-bullet, declarando dependências e bloqueios entre eles.',
+        keywords: 'tickets tarefas plano spec dependências bloqueios tracer bullet',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/to-tickets', 'C:/Users/Dell/.claude/skills/to-tickets']
+      },
+      {
+        id: 'triage',
+        name: 'Triage',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Conduzir issues e PRs por uma máquina de estados de triagem, categorizando, verificando e escrevendo briefs para agentes.',
+        keywords: 'triagem issue pr pull request brief state machine categorização',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/triage', 'C:/Users/Dell/.claude/skills/triage']
+      },
+      {
+        id: 'wayfinder',
+        name: 'Wayfinder',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Planejar trabalhos grandes como um mapa compartilhado de tickets de decisão e resolver o caminho por etapas.',
+        keywords: 'planejamento grande decisão tickets mapa arquitetura caminho',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/wayfinder', 'C:/Users/Dell/.claude/skills/wayfinder']
+      },
+      {
+        id: 'wizard',
+        name: 'Wizard',
+        family: 'Engenharia',
+        familyClass: 'code',
+        purpose: 'Gerar um wizard interativo em Bash para guiar pessoas em etapas que exigem ações humanas, como credenciais ou cutovers.',
+        keywords: 'bash wizard infraestrutura credenciais ci secrets migração cutover',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/wizard', 'C:/Users/Dell/.claude/skills/wizard']
+      },
+      {
+        id: 'claude-handoff',
+        name: 'Claude Handoff',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Transferir a conversa atual para um agente em segundo plano que continua o trabalho imediatamente.',
+        keywords: 'claude handoff agente background transferência contexto',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/claude-handoff', 'C:/Users/Dell/.claude/skills/claude-handoff']
+      },
+      {
+        id: 'implement-spec',
+        name: 'Implement Spec',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Implementar uma especificação escrita diretamente no código.',
+        keywords: 'implement spec especificação código execução desenvolvimento',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/implement-spec', 'C:/Users/Dell/.claude/skills/implement-spec']
+      },
+      {
+        id: 'loop-me',
+        name: 'Loop Me',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Fazer perguntas sobre os specs dos workflows que serão construídos dentro do workspace.',
+        keywords: 'loop entrevista workflow spec requisitos perguntas',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/loop-me', 'C:/Users/Dell/.claude/skills/loop-me']
+      },
+      {
+        id: 'retro',
+        name: 'Retro',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Conduzir uma retrospectiva da sessão de programação e extrair melhorias para o processo.',
+        keywords: 'retrospectiva coding session processo melhoria aprendizado',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/retro', 'C:/Users/Dell/.claude/skills/retro']
+      },
+      {
+        id: 'setup-ts-deep-modules',
+        name: 'Setup TS Deep Modules',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Configurar dependency-cruiser em um projeto TypeScript para estruturar pacotes como módulos profundos.',
+        keywords: 'typescript dependency cruiser deep modules pacotes entry points arquitetura',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/setup-ts-deep-modules', 'C:/Users/Dell/.claude/skills/setup-ts-deep-modules']
+      },
+      {
+        id: 'writing-beats',
+        name: 'Writing Beats',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Organizar material bruto em uma jornada de beats, fundamentando cada termo antes de avançar.',
+        keywords: 'escrita narrativa beats estrutura material bruto jornada',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/writing-beats', 'C:/Users/Dell/.claude/skills/writing-beats']
+      },
+      {
+        id: 'writing-fragments',
+        name: 'Writing Fragments',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Explorar uma ideia de escrita minerando fragmentos brutos, ainda sem impor uma estrutura.',
+        keywords: 'escrita fragmentos exploração material bruto ideias artigo',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/writing-fragments', 'C:/Users/Dell/.claude/skills/writing-fragments']
+      },
+      {
+        id: 'writing-shape',
+        name: 'Writing Shape',
+        family: 'Em progresso',
+        familyClass: 'tools',
+        purpose: 'Dar forma a um material bruto para construir um artigo ou texto, parágrafo por parágrafo.',
+        keywords: 'escrita shape artigo parágrafo estrutura edição',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/writing-shape', 'C:/Users/Dell/.claude/skills/writing-shape']
+      },
+      {
+        id: 'git-guardrails-claude-code',
+        name: 'Git Guardrails — Claude Code',
+        family: 'Ferramentas',
+        familyClass: 'tools',
+        purpose: 'Configurar hooks do Claude Code para bloquear comandos Git perigosos, como push, reset --hard, clean e branch -D.',
+        keywords: 'claude code git hooks guardrails push reset hard clean segurança',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/git-guardrails-claude-code', 'C:/Users/Dell/.claude/skills/git-guardrails-claude-code']
+      },
+      {
+        id: 'migrate-to-shoehorn',
+        name: 'Migrate to Shoehorn',
+        family: 'Ferramentas',
+        familyClass: 'tools',
+        purpose: 'Migrar testes que usam asserções de tipo as para @total-typescript/shoehorn e dados parciais de teste.',
+        keywords: 'typescript testes shoehorn type assertion as migração dados parciais',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/migrate-to-shoehorn', 'C:/Users/Dell/.claude/skills/migrate-to-shoehorn']
+      },
+      {
+        id: 'scaffold-exercises',
+        name: 'Scaffold Exercises',
+        family: 'Ferramentas',
+        familyClass: 'tools',
+        purpose: 'Criar estruturas de diretórios para exercícios, problemas, soluções e explicadores que passam no lint.',
+        keywords: 'exercícios curso scaffolding problemas soluções explicadores lint',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/scaffold-exercises', 'C:/Users/Dell/.claude/skills/scaffold-exercises']
+      },
+      {
+        id: 'setup-pre-commit',
+        name: 'Setup Pre-commit',
+        family: 'Ferramentas',
+        familyClass: 'tools',
+        purpose: 'Configurar hooks Husky com lint-staged, Prettier, checagem de tipos e testes antes de cada commit.',
+        keywords: 'husky lint staged prettier typecheck testes pre commit hooks',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/setup-pre-commit', 'C:/Users/Dell/.claude/skills/setup-pre-commit']
+      },
+      {
+        id: 'grill-me',
+        name: 'Grill Me',
+        family: 'Produtividade',
+        familyClass: 'discovery',
+        purpose: 'Fazer uma entrevista rigorosa para tornar um plano ou design mais claro e robusto.',
+        keywords: 'entrevista plano design decisões perguntas stress test',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/grill-me', 'C:/Users/Dell/.claude/skills/grill-me']
+      },
+      {
+        id: 'grilling',
+        name: 'Grilling',
+        family: 'Produtividade',
+        familyClass: 'discovery',
+        purpose: 'Aplicar uma entrevista reutilizável e insistente para testar planos, decisões e ideias.',
+        keywords: 'grill stress test plano decisão ideia entrevista',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/grilling', 'C:/Users/Dell/.claude/skills/grilling']
+      },
+      {
+        id: 'handoff',
+        name: 'Handoff',
+        family: 'Produtividade',
+        familyClass: 'discovery',
+        purpose: 'Compactar a conversa atual em um documento de handoff para outro agente continuar o trabalho.',
+        keywords: 'handoff contexto resumo agente transferência documentação',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/handoff', 'C:/Users/Dell/.claude/skills/handoff']
+      },
+      {
+        id: 'teach',
+        name: 'Teach',
+        family: 'Produtividade',
+        familyClass: 'discovery',
+        purpose: 'Ensinar uma skill ou conceito novo ao usuário ao longo de múltiplas sessões, mantendo o estado no workspace.',
+        keywords: 'ensinar aprendizado conceito skill sessões workspace',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/teach', 'C:/Users/Dell/.claude/skills/teach']
+      },
+      {
+        id: 'to-questionnaire',
+        name: 'To Questionnaire',
+        family: 'Produtividade',
+        familyClass: 'discovery',
+        purpose: 'Transformar uma decisão que não pode ser respondida sozinho em um questionário para outra pessoa preencher.',
+        keywords: 'questionário decisão async perguntas coleta de requisitos',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/to-questionnaire', 'C:/Users/Dell/.claude/skills/to-questionnaire']
+      },
+      {
+        id: 'wait-what',
+        name: 'Wait, What?',
+        family: 'Produtividade',
+        familyClass: 'discovery',
+        purpose: 'Reexplicar uma mensagem confusa em linguagem simples usando o contexto do projeto.',
+        keywords: 'clareza explicar re pitch contexto mensagem confusa linguagem simples',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/wait-what', 'C:/Users/Dell/.claude/skills/wait-what']
+      },
+      {
+        id: 'writing-for-agents',
+        name: 'Writing for Agents',
+        family: 'Produtividade',
+        familyClass: 'discovery',
+        purpose: 'Escrever e editar skills, AGENTS.md, CLAUDE.md e outras documentações destinadas a agentes.',
+        keywords: 'agents md claude md skills documentação escrita agentes instruções',
+        locations: ['Codex', 'Claude Code'],
+        paths: ['C:/Users/Dell/.codex/skills/writing-for-agents', 'C:/Users/Dell/.claude/skills/writing-for-agents']
+      }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const familyFilter = document.getElementById('familyFilter');
+    const locationFilter = document.getElementById('locationFilter');
+    const clearButton = document.getElementById('clearButton');
+    const skillsGrid = document.getElementById('skillsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const resultCount = document.getElementById('resultCount');
+    const resultHint = document.getElementById('resultHint');
+
+    const families = [...new Set(skills.map(skill => skill.family))];
+    const locations = [...new Set(skills.flatMap(skill => skill.locations))];
+
+    families.forEach(family => {
+      const option = document.createElement('option');
+      option.value = family;
+      option.textContent = family;
+      familyFilter.appendChild(option);
+    });
+
+    locations.forEach(location => {
+      const option = document.createElement('option');
+      option.value = location;
+      option.textContent = location;
+      locationFilter.appendChild(option);
+    });
+
+    document.getElementById('totalCount').textContent = skills.length;
+    document.getElementById('familyCount').textContent = families.length;
+    document.getElementById('locationCount').textContent = locations.length;
+
+    function escapeHtml(value) {
+      return value
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function renderSkill(skill, index) {
+      const locationsHtml = skill.locations
+        .map(location => '<span class="location">' + escapeHtml(location) + '</span>')
+        .join('');
+      const pathsHtml = skill.paths
+        .map(path => '<li><code>' + escapeHtml(path) + '</code></li>')
+        .join('');
+
+      return '<article class="skill-row family-' + skill.familyClass + '" data-search="' + escapeHtml((skill.name + ' ' + skill.family + ' ' + skill.purpose + ' ' + skill.keywords + ' ' + skill.locations.join(' ')).toLowerCase()) + '">' +
+        '<div class="skill-index">' + String(index + 1).padStart(2, '0') + '</div>' +
+        '<div>' +
+          '<span class="skill-name">' + escapeHtml(skill.name) + '</span>' +
+          '<span class="skill-slug">' + escapeHtml(skill.id) + '</span>' +
+          '<span class="family-tag"><span class="family-dot"></span>' + escapeHtml(skill.family) + '</span>' +
+        '</div>' +
+        '<p class="skill-purpose"><strong>Serve para</strong>' + escapeHtml(skill.purpose) + '</p>' +
+        '<div class="locations" aria-label="Disponível em">' + locationsHtml + '</div>' +
+        '<div aria-hidden="true" class="skill-index"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M10 19h9V10"></path></svg></div>' +
+        '<details class="details">' +
+          '<summary>ver caminhos instalados</summary>' +
+          '<ul class="path-list">' + pathsHtml + '</ul>' +
+        '</details>' +
+      '</article>';
+    }
+
+    function update() {
+      const query = searchInput.value.trim().toLowerCase();
+      const family = familyFilter.value;
+      const location = locationFilter.value;
+      const filtered = skills.filter(skill => {
+        const matchesQuery = !query || (skill.name + ' ' + skill.family + ' ' + skill.purpose + ' ' + skill.keywords + ' ' + skill.locations.join(' ')).toLowerCase().includes(query);
+        const matchesFamily = family === 'all' || skill.family === family;
+        const matchesLocation = location === 'all' || skill.locations.includes(location);
+        return matchesQuery && matchesFamily && matchesLocation;
+      });
+
+      skillsGrid.innerHTML = filtered.map((skill) => renderSkill(skill, skills.indexOf(skill))).join('');
+      resultCount.textContent = filtered.length;
+      emptyState.style.display = filtered.length ? 'none' : 'block';
+
+      const filtersActive = query || family !== 'all' || location !== 'all';
+      resultHint.textContent = filtersActive ? 'resultado filtrado' : 'todas as instalações pessoais';
+    }
+
+    searchInput.addEventListener('input', update);
+    familyFilter.addEventListener('change', update);
+    locationFilter.addEventListener('change', update);
+    clearButton.addEventListener('click', () => {
+      searchInput.value = '';
+      familyFilter.value = 'all';
+      locationFilter.value = 'all';
+      update();
+      searchInput.focus();
+    });
+
+    update();
+  </script>
+</body>
+</html>
